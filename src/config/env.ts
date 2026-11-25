@@ -1,0 +1,36 @@
+import 'dotenv/config';
+
+function required(name: string, fallback?: string): string {
+  const value = process.env[name] ?? fallback;
+
+  if (!value) {
+    throw new Error(`A variavel de ambiente ${name} nao foi definida`);
+  }
+
+  return value;
+}
+
+const isProduction = process.env.IS_PRODUCTION?.toLowerCase() === 'true';
+
+export const env = {
+  port: Number(process.env.PORT ?? 3000),
+  database: {
+    host: required('DB_HOST', 'postgres'),
+    port: Number(process.env.DB_PORT ?? 5432),
+    username: required('DB_USERNAME', 'postgres'),
+    password: required('DB_PASSWORD', 'postgres'),
+    name: required('DB_DATABASE', 'tech_challenge'),
+  },
+  jwt: {
+    secret: required('JWT_SECRET', 'development-secret'),
+    expiresIn: process.env.JWT_EXPIRES_IN ?? '1h',
+  },
+  auth: {
+    cookieName: process.env.AUTH_COOKIE_NAME ?? 'session',
+    cookieMaxAgeMs: Number(process.env.AUTH_COOKIE_MAX_AGE_MS ?? 60 * 60 * 1000),
+  },
+  cors: {
+    origin: process.env.FRONTEND_URL ?? 'http://localhost:5173',
+  },
+  isProduction,
+};
