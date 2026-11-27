@@ -1,9 +1,18 @@
-import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { OccurencePriority, OccurenceRating, OccurenceStatus } from '../types/TablesEnums';
 import { User } from './User';
 import { Category } from './Category';
 import { OccurenceView } from './OccurenceView';
-import { OccurencePriority, OccurenceRating, OccurenceStatus } from '../types/TablesEnums';
 import { StatusHistory } from './StatusHistory';
+import { Comment } from './Comment';
 
 @Entity('occurences')
 export class Occurence {
@@ -19,14 +28,14 @@ export class Occurence {
   @Column({
     type: 'enum',
     enum: OccurenceStatus,
-    default: OccurenceStatus.OPEN
+    default: OccurenceStatus.OPEN,
   })
   status!: OccurenceStatus;
 
   @Column({
     type: 'enum',
     enum: OccurencePriority,
-    default: OccurencePriority.LOW
+    default: OccurencePriority.LOW,
   })
   priority!: OccurencePriority;
 
@@ -42,7 +51,7 @@ export class Occurence {
   @Column({
     type: 'enum',
     enum: OccurenceRating,
-    nullable: true
+    nullable: true,
   })
   rating!: OccurenceRating | null;
 
@@ -63,4 +72,7 @@ export class Occurence {
 
   @OneToMany(() => StatusHistory, statusHistory => statusHistory.occurence)
   statusHistory!: StatusHistory[];
+
+  @OneToMany(() => Comment, comment => comment.occurence)
+  comments!: Comment[];
 }

@@ -5,6 +5,7 @@ import { Category } from './Category';
 import { Occurence } from './Occurence';
 import { OccurenceView } from './OccurenceView';
 import { StatusHistory } from './StatusHistory';
+import { Comment } from './Comment';
 
 @Entity('users')
 export class User {
@@ -51,4 +52,8 @@ export class User {
 
   @OneToMany(() => StatusHistory, statusHistory => statusHistory.changedBy)
   statusHistory!: StatusHistory[];
+
+  @OneToMany(() => Comment, comment => comment.user)
+  comments!: Comment[];
+
 }
