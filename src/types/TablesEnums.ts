@@ -19,3 +19,14 @@ export enum OccurenceRating {
   FOUR = 4,
   FIVE = 5,
 }
+
+export enum OccurenceRequestStatus {
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED'
+}
+
+export enum OccurenceRequestType {
+  COMPLETION = 'COMPLETION',
+  CANCELLATION = 'CANCELLATION',
+}

@@ -11,9 +11,6 @@ export class Comment {
   @Column()
   createdAt!: Date;
 
-  @Column()
-  editedAt!: Date;
-
   @Column({nullable: false})
   content!: string;
 

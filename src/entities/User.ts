@@ -6,6 +6,7 @@ import { Occurence } from './Occurence';
 import { OccurenceView } from './OccurenceView';
 import { StatusHistory } from './StatusHistory';
 import { Comment } from './Comment';
+import { OccurenceRequest } from './OccurenceRequest';
 
 @Entity('users')
 export class User {
@@ -55,5 +56,11 @@ export class User {
 
   @OneToMany(() => Comment, comment => comment.user)
   comments!: Comment[];
+
+  @OneToMany(() => OccurenceRequest, occurenceRequest => occurenceRequest.requestedBy)
+  closeOccurenceRequests!: OccurenceRequest[];
+
+  @OneToMany(() => OccurenceRequest, occurenceRequest => occurenceRequest.reviewedBy)
+  reviewedOccurences!: OccurenceRequest[];
 
 }

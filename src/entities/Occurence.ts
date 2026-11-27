@@ -13,6 +13,7 @@ import { Category } from './Category';
 import { OccurenceView } from './OccurenceView';
 import { StatusHistory } from './StatusHistory';
 import { Comment } from './Comment';
+import { OccurenceRequest } from './OccurenceRequest';
 
 @Entity('occurences')
 export class Occurence {
@@ -75,4 +76,7 @@ export class Occurence {
 
   @OneToMany(() => Comment, comment => comment.occurence)
   comments!: Comment[];
+
+  @OneToMany(() => OccurenceRequest, occurenceRequest => occurenceRequest.occurence)
+  occurenceRequests!: OccurenceRequest[];
 }
