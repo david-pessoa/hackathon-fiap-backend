@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, } from 'typeorm';
 import { User } from './User';
 import { Category } from './Category';
+import { OccurenceView } from './OccurenceView';
 
 enum OccurenceStatus {
   OPEN = 'OPEN',
@@ -76,4 +77,7 @@ export class Occurence {
   @ManyToOne(() => Category, category => category.occurence, { nullable: false })
   @JoinColumn({ name: 'category_id' })
   category!: Category;
+
+  @OneToMany(() => OccurenceView, occurenceViews => occurenceViews.user)
+  views!: OccurenceView[];
 }

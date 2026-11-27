@@ -3,6 +3,7 @@ import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGe
 import { Role } from './Role';
 import { Category } from './Category';
 import { Occurence } from './Occurence';
+import { OccurenceView } from './OccurenceView';
 
 @Entity('users')
 export class User {
@@ -39,8 +40,11 @@ export class User {
   categories!: Category;
 
   @OneToMany(() => Occurence, occurence => occurence.requester)
-  requestedOccurences!: User[];
+  requestedOccurences!: Occurence[];
 
   @OneToMany(() => Occurence, occurence => occurence.assignedEmployee)
-  assignedOccurences!: Comment[];
+  assignedOccurences!: Occurence[];
+
+  @OneToMany(() => OccurenceView, occurenceViews => occurenceViews.occurence)
+  viewedOccurences!: OccurenceView[];
 }
