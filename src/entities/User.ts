@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, } from 'typeorm';
 
 import { Role } from './Role';
+import { Category } from './Category';
 
 @Entity('users')
 export class User {
@@ -8,16 +9,22 @@ export class User {
   id!: string;
 
   @Column({ unique: true })
-  matricula!: string;
+  cpf!: string;
 
   @Column()
-  nome!: string;
+  name!: string;
 
-  @Column({ type: 'date', name: 'birth_date', nullable: true })
-  birthDate!: Date | null;
+  @Column({ unique: true })
+  email!: string;
 
   @Column()
-  senha!: string;
+  phone!: string;
+
+  @Column()
+  address!: string;
+
+  @Column()
+  password!: string;
 
   @Column({ type: 'bytea', name: 'image', nullable: true })
   image!: Buffer | null;
@@ -26,9 +33,13 @@ export class User {
   @JoinColumn({ name: 'role_id' })
   role!: Role;
 
-  @OneToMany(() => Post, post => post.user)
-  posts!: Post[];
+  @ManyToMany(() => Category, categories => categories.users, { nullable: true })
+  @JoinColumn({ name: 'category_id' })
+  categories!: Category;
 
-  @OneToMany(() => Comment, comment => comment.user)
-  comments!: Comment[];
+  // @OneToMany(() => Post, post => post.user)
+  // posts!: Post[];
+
+  // @OneToMany(() => Comment, comment => comment.user)
+  // comments!: Comment[];
 }
