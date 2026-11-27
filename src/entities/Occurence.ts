@@ -2,28 +2,8 @@ import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGe
 import { User } from './User';
 import { Category } from './Category';
 import { OccurenceView } from './OccurenceView';
-
-enum OccurenceStatus {
-  OPEN = 'OPEN',
-  UNDER_ANALYSIS = 'UNDER_ANALYSIS',
-  IN_PROGRESS = 'IN_PROGRESS',
-  CANCELLED = 'CANCELLED',
-  COMPLETED = 'COMPLETED',
-}
-
-enum OccurencePriority {
-  LOW = 'LOW',
-  MEDIUM = 'MEDIUM',
-  HIGH = 'HIGH',
-}
-
-enum OccurenceRating {
-  ONE = 1,
-  TWO = 2,
-  THREE = 3,
-  FOUR = 4,
-  FIVE = 5,
-}
+import { OccurencePriority, OccurenceRating, OccurenceStatus } from '../types/TablesEnums';
+import { StatusHistory } from './StatusHistory';
 
 @Entity('occurences')
 export class Occurence {
@@ -78,6 +58,9 @@ export class Occurence {
   @JoinColumn({ name: 'category_id' })
   category!: Category;
 
-  @OneToMany(() => OccurenceView, occurenceViews => occurenceViews.user)
+  @OneToMany(() => OccurenceView, occurenceViews => occurenceViews.occurence)
   views!: OccurenceView[];
+
+  @OneToMany(() => StatusHistory, statusHistory => statusHistory.occurence)
+  statusHistory!: StatusHistory[];
 }

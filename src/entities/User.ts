@@ -4,6 +4,7 @@ import { Role } from './Role';
 import { Category } from './Category';
 import { Occurence } from './Occurence';
 import { OccurenceView } from './OccurenceView';
+import { StatusHistory } from './StatusHistory';
 
 @Entity('users')
 export class User {
@@ -45,6 +46,9 @@ export class User {
   @OneToMany(() => Occurence, occurence => occurence.assignedEmployee)
   assignedOccurences!: Occurence[];
 
-  @OneToMany(() => OccurenceView, occurenceViews => occurenceViews.occurence)
+  @OneToMany(() => OccurenceView, occurenceViews => occurenceViews.user)
   viewedOccurences!: OccurenceView[];
+
+  @OneToMany(() => StatusHistory, statusHistory => statusHistory.changedBy)
+  statusHistory!: StatusHistory[];
 }
