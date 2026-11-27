@@ -5,8 +5,11 @@ import { env } from './env';
 import { User } from '../entities/User';
 import { Role } from '../entities/Role';
 import { Category } from '../entities/Category';
+import { Occurence } from '../entities/Occurence';
 
 import { InitialSchema1795650437924 } from '../migrations/1795650437924-InitialSchema';
+import { CreateOccurenceTable1795741884534 } from '../migrations/1795741884534-CreateOccurenceTable';
+
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -20,7 +23,6 @@ export const AppDataSource = new DataSource({
   database: env.database.name,
   synchronize: false,
   logging: false,
-  entities: [User, Role, Category],
-  migrations: [InitialSchema1795650437924
-  ],
+  entities: [User, Role, Category, Occurence],
+  migrations: [InitialSchema1795650437924, CreateOccurenceTable1795741884534],
 });

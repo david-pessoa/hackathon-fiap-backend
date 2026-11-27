@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGe
 
 import { Role } from './Role';
 import { Category } from './Category';
+import { Occurence } from './Occurence';
 
 @Entity('users')
 export class User {
@@ -37,9 +38,9 @@ export class User {
   @JoinColumn({ name: 'category_id' })
   categories!: Category;
 
-  // @OneToMany(() => Post, post => post.user)
-  // posts!: Post[];
+  @OneToMany(() => Occurence, occurence => occurence.requester)
+  requestedOccurences!: User[];
 
-  // @OneToMany(() => Comment, comment => comment.user)
-  // comments!: Comment[];
+  @OneToMany(() => Occurence, occurence => occurence.assignedEmployee)
+  assignedOccurences!: Comment[];
 }
