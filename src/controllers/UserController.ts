@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 // import { getUserImageService } from '../services/users/GetUserImageService';
 // import { getImageMimeType } from '../services/imageMimeType';
 // import { getUserService } from '../services/users/GetUserService';
-// import { listUsersService } from '../services/users/ListUsersService';
-// import { createUserService } from '../services/users/CreateUserService';
+import { listUsersService } from '../services/users/ListUsersService';
+import { createUserService } from '../services/users/CreateUserService';
 // import { updateUserService } from '../services/users/UpdateUserService';
 // import { deleteUserService } from '../services/users/DeleteUserService';
 
@@ -22,11 +22,17 @@ export class UserController {
   async list(request: Request, response: Response, next: NextFunction) {
     try {
       const filterRole = String(request.query.role ?? '');
-      const currentPage = Number(request.query.p ?? 1);
-      const pageLength = Number(request.query.l ?? 0);
-      // const usuarios = await listUsersService.execute(request.user, filterRole, currentPage, pageLength);
+      const currentPage = Number(request.query.page ?? 1);
+      const pageLength = Number(request.query.limit ?? 0);
+      const categoryId = String(request.query.categoryId ?? '');
+      const usuarios = await listUsersService.execute(
+        filterRole,
+        currentPage,
+        pageLength,
+        categoryId
+      );
 
-      // return response.status(200).json(usuarios);
+      return response.status(200).json(usuarios);
     } catch (error) {
       return next(error);
     }
@@ -35,15 +41,15 @@ export class UserController {
   async create(request: Request, response: Response, next: NextFunction) {
     try {
       const usuarioLogado = request.user;
-      // const usuario = await createUserService.execute(
-      //   {
-      //     ...request.body,
-      //     image: request.file?.buffer ?? null,
-      //   },
-      //   usuarioLogado
-      // );
+      const usuario = await createUserService.execute(
+        {
+          ...request.body,
+          image: request.file?.buffer ?? null,
+        },
+        usuarioLogado
+      );
 
-      // response.status(201).json(usuario);
+      response.status(201).json({ message: 'Usuário criado com sucesso!', user: usuario });
     } catch (error) {
       next(error);
     }

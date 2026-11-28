@@ -2107,7 +2107,7 @@ components:
         users:
           type: array
           items:
-                $ref: '#/components/schemas/User'
+            $ref: '#/components/schemas/User'
         pagination:
           $ref: '#/components/schemas/Pagination'
       required: [users, pagination]

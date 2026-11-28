@@ -33,7 +33,7 @@ app.use(cors({
 }));
 
 // Rotas da aplicação
-app.use('/api/user', userRouter); // cadastro de usuários
+app.use('/api/users', userRouter); // cadastro de usuários
 app.use('/api/auth', authRouter); // login
 
 // Middleware de erros

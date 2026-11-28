@@ -7,13 +7,9 @@ export const userRouter = Router();
 
 userRouter.get(
   '/',
-  authMiddleware,
-  authorizeRoles('ADMIN', 'PROFESSOR'),
   userController.list.bind(userController)
 );
 userRouter.get('/:id/image', userController.getUserImage);
-
-userRouter.use(authMiddleware);
 
 userRouter.get('/me', userController.getMe.bind(userController));
 
@@ -24,16 +20,16 @@ userRouter.get(
 
 userRouter.post(
   '/',
-  authorizeRoles('ADMIN', 'PROFESSOR'),
   upload.single('image'),
   userController.create.bind(userController)
 );
 
+userRouter.use(authMiddleware);
+
 userRouter.patch(
   '/:id',
-  authorizeRoles('ADMIN', 'PROFESSOR'),
   upload.single('image'),
   userController.update.bind(userController)
 );
 
-userRouter.delete('/:id', authorizeRoles('ADMIN'), userController.delete.bind(userController));
+userRouter.delete('/:id', authorizeRoles('MANAGER'), userController.delete.bind(userController));

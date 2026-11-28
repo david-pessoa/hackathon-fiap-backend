@@ -17,6 +17,7 @@ import { CreateOccurenceViewTable1795743339699 } from '../migrations/17957433396
 import { CreateStatusHistoryTable1795744795559 } from '../migrations/1795744795559-CreateStatusHistoryTable';
 import { CommentTable1795745816103 } from '../migrations/1795745816103-CommentTable';
 import { OccurenceRequestTable1795747389598 } from '../migrations/1795747389598-OccurenceRequestTable';
+import { CorrigeColunaCategories1795824884058 } from '../migrations/1795824884058-CorrigeColunaCategories';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -46,6 +47,7 @@ export const AppDataSource = new DataSource({
     CreateOccurenceViewTable1795743339699,
     CreateStatusHistoryTable1795744795559,
     CommentTable1795745816103,
-    OccurenceRequestTable1795747389598
+    OccurenceRequestTable1795747389598,
+    CorrigeColunaCategories1795824884058
   ],
 });

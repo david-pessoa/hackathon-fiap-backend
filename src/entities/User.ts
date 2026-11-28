@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, } from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, } from 'typeorm';
 
 import { Role } from './Role';
 import { Category } from './Category';
@@ -39,8 +39,8 @@ export class User {
   role!: Role;
 
   @ManyToMany(() => Category, categories => categories.users, { nullable: true })
-  @JoinColumn({ name: 'category_id' })
-  categories!: Category;
+  @JoinTable()
+  categories!: Category[];
 
   @OneToMany(() => Occurence, occurence => occurence.requester)
   requestedOccurences!: Occurence[];
