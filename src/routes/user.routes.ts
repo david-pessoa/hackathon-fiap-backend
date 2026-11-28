@@ -5,6 +5,14 @@ import { upload } from '../middlewares/uploadMiddleware';
 
 export const userRouter = Router();
 
+userRouter.post(
+  '/',
+  upload.single('image'),
+  userController.create.bind(userController)
+);
+
+userRouter.use(authMiddleware);
+
 userRouter.get(
   '/',
   userController.list.bind(userController)
@@ -16,17 +24,10 @@ userRouter.get(
   userController.getById.bind(userController)
 );
 
-userRouter.post(
-  '/',
-  upload.single('image'),
-  userController.create.bind(userController)
-);
-
-userRouter.use(authMiddleware);
-
 userRouter.patch(
   '/:id',
   upload.single('image'),
+  authorizeRoles('MANAGER'),
   userController.update.bind(userController)
 );
 

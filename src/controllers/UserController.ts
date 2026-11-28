@@ -1,19 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
 // import { getUserImageService } from '../services/users/GetUserImageService';
 // import { getImageMimeType } from '../services/imageMimeType';
-// import { getUserService } from '../services/users/GetUserService';
+import { getUserService } from '../services/users/GetUserService';
 import { listUsersService } from '../services/users/ListUsersService';
 import { createUserService } from '../services/users/CreateUserService';
-// import { updateUserService } from '../services/users/UpdateUserService';
+import { updateUserService } from '../services/users/UpdateUserService';
 // import { deleteUserService } from '../services/users/DeleteUserService';
 
 export class UserController {
   async getById(request: Request, response: Response, next: NextFunction) {
     try {
       const id = String(request.params.id);
-      // const usuario = await getUserService.execute(id);
+      const usuario = await getUserService.execute(id);
 
-      // return response.status(200).json(usuario);
+      return response.status(200).json(usuario);
     } catch (error) {
       return next(error);
     }
@@ -59,16 +59,16 @@ export class UserController {
     try {
       const id = String(request.params.id);
       const usuarioLogado = request.user;
-      // const usuario = await updateUserService.execute(
-      //   id,
-      //   {
-      //     ...request.body,
-      //     image: request.file?.buffer,
-      //   },
-      //   usuarioLogado
-      // );
+      const usuario = await updateUserService.execute(
+        id,
+        {
+          ...request.body,
+          image: request.file?.buffer,
+        },
+        usuarioLogado
+      );
 
-      // response.status(200).json(usuario);
+      response.status(200).json(usuario);
     } catch (error) {
       next(error);
     }

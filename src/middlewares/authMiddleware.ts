@@ -61,7 +61,7 @@ export function authorizeRoles(...roles: string[]) {
       return next(new AppError(401, 'Usuário não autenticado'));
     }
 
-    if (!roles.includes(request.user.role.nome)) {
+    if (!roles.includes(request.user.role.name)) {
       return next(new AppError(403, 'Acesso não autorizado'));
     }
 

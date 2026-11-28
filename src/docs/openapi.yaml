@@ -74,7 +74,7 @@ paths:
                   image: /api/users/2a8c2b4e-61f7-4f8b-9c1a-6f0b8c5a1201/image
         '400':
           $ref: '#/components/responses/BadRequest'
-          
+
         '401':
           description: CPF ou senha inválidos.
           content:
@@ -370,7 +370,7 @@ paths:
           $ref: '#/components/responses/ForbiddenError'
         '404':
           $ref: '#/components/responses/NotFound'
-    put:
+    patch:
       tags: [Usuários]
       summary: Atualizar usuário
       description: Atualiza os dados do usuário identificado na URL. A senha, quando alterada, deve ser armazenada com hash no servidor.

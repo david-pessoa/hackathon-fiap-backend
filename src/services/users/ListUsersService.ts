@@ -1,4 +1,4 @@
-import { User } from '../../entities/User';
+import { isEmpty } from '../../utils/functions'
 import { userRepository } from '../../repositories/UserRepository';
 
 export class ListUsersService {
@@ -49,13 +49,6 @@ export class ListUsersService {
 
     // Calcula o total de páginas existentes
     const totalPages = Math.ceil(registerNum / pageLength);
-
-    function isEmpty(list: any[]) {
-      if(list.length == 0)
-        return null
-      else
-        return list
-    }
 
     return {
       users: users.map(user => ({
