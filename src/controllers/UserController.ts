@@ -5,7 +5,7 @@ import { getUserService } from '../services/users/GetUserService';
 import { listUsersService } from '../services/users/ListUsersService';
 import { createUserService } from '../services/users/CreateUserService';
 import { updateUserService } from '../services/users/UpdateUserService';
-// import { deleteUserService } from '../services/users/DeleteUserService';
+import { deleteUserService } from '../services/users/DeleteUserService';
 
 export class UserController {
   async getById(request: Request, response: Response, next: NextFunction) {
@@ -77,9 +77,9 @@ export class UserController {
   async delete(request: Request, response: Response, next: NextFunction) {
     try {
       const id = String(request.params.id);
-      // const result = await deleteUserService.execute(id);
+      const result = await deleteUserService.execute(id);
 
-      // return response.status(200).json(result);
+      return response.status(200).json(result);
     } catch (error) {
       return next(error);
     }
