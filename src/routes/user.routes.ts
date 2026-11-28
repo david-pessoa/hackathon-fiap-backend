@@ -11,8 +11,6 @@ userRouter.get(
 );
 userRouter.get('/:id/image', userController.getUserImage);
 
-userRouter.get('/me', userController.getMe.bind(userController));
-
 userRouter.get(
   '/:id',
   userController.getById.bind(userController)

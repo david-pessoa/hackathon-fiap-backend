@@ -6,7 +6,7 @@ import { env } from '../config/env';
 const cookieOptions = {
   httpOnly: true,
   secure: env.isProduction,
-  sameSite: env.isProduction ? 'none' as const : 'lax' as const,
+  sameSite: env.isProduction ? ('none' as const) : ('lax' as const),
   maxAge: env.auth.cookieMaxAgeMs,
   path: '/',
 };
@@ -38,6 +38,17 @@ export class AuthController {
       response.json({ message: 'Logout realizado com sucesso!' });
     } catch (error) {
       next(error);
+    }
+  }
+  async getMe(request: Request, response: Response, next: NextFunction) {
+    try {
+      const usuarioLogado = request.user;
+      delete usuarioLogado.password;
+      usuarioLogado.role = usuarioLogado.role.name;
+      if (usuarioLogado.image) usuarioLogado.image = `/api/user/${usuarioLogado.id}/image`;
+      response.status(200).json(usuarioLogado);
+    } catch (error) {
+      return next(error);
     }
   }
 }

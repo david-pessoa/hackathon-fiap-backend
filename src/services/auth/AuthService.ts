@@ -16,14 +16,14 @@ export class AuthService {
 
     // Se não encontrou, retorna erro genérico (não revelamos se é matrícula ou senha)
     if (!usuario) {
-      throw new AppError(401, 'Matrícula ou senha inválidas');
+      throw new AppError(401, 'CPF ou senha inválidos');
     }
 
     // Compara a senha informada com o hash salvo no banco
     const senhaCorreta = await bcrypt.compare(dados.password, usuario.password);
 
     if (!senhaCorreta) {
-      throw new AppError(401, 'Matrícula ou senha inválidas');
+      throw new AppError(401, 'Senha inválida');
     }
 
     // Gera o token JWT com os dados básicos do usuário
@@ -44,6 +44,8 @@ export class AuthService {
         id: usuario.id,
         name: usuario.name,
         email: usuario.email,
+        phone: usuario.phone,
+        address: usuario.address,
         cpf: usuario.cpf,
         role: usuario.role.name,
         image: usuario.image ? `/api/user/${usuario.id}/image` : null
