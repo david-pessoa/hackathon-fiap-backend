@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-// import { getUserImageService } from '../services/users/GetUserImageService';
-// import { getImageMimeType } from '../services/imageMimeType';
+import { getUserImageService } from '../services/users/GetUserImageService';
+import { getImageMimeType } from '../services/imageMimeType';
 import { getUserService } from '../services/users/GetUserService';
 import { listUsersService } from '../services/users/ListUsersService';
 import { createUserService } from '../services/users/CreateUserService';
@@ -90,24 +90,24 @@ export class UserController {
   async getUserImage(request: Request, response: Response, next: NextFunction) {
     try {
       const id = String(request.params.id);
-      // const userImage = await getUserImageService.execute(id);
+      const userImage = await getUserImageService.execute(id);
 
-      // if (!userImage) {
-      //   return response.status(404).json({
-      //     message: 'Imagem não encontrada',
-      //   });
-      // }
+      if (!userImage) {
+        return response.status(404).json({
+          message: 'Imagem não encontrada',
+        });
+      }
 
-      // const mimeType = getImageMimeType(userImage);
+      const mimeType = getImageMimeType(userImage);
 
-      // if (!mimeType) {
-      //   return response.status(415).json({
-      //     message: 'Tipo de imagem não identificado',
-      //   });
-      // }
+      if (!mimeType) {
+        return response.status(415).json({
+          message: 'Tipo de imagem não identificado',
+        });
+      }
 
-      // response.type(mimeType);
-      // return response.send(userImage);
+      response.type(mimeType);
+      return response.send(userImage);
     } catch (error) {
       return next(error);
     }
